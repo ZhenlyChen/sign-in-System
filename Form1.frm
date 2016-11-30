@@ -5,7 +5,7 @@ Begin VB.Form Form1
    ClientHeight    =   5625
    ClientLeft      =   5925
    ClientTop       =   4845
-   ClientWidth     =   7710
+   ClientWidth     =   7665
    BeginProperty Font 
       Name            =   "微软雅黑"
       Size            =   12
@@ -20,31 +20,23 @@ Begin VB.Form Form1
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   5625
-   ScaleWidth      =   7710
+   ScaleWidth      =   7665
    Begin VB.CommandButton Command1 
       Caption         =   "增加座位"
       Height          =   615
       Left            =   6120
-      TabIndex        =   26
+      TabIndex        =   25
       Top             =   2880
       Width           =   1455
    End
    Begin VB.OptionButton Option5 
       Caption         =   "姓名"
       Height          =   615
-      Left            =   14040
-      TabIndex        =   24
-      Top             =   120
-      Value           =   -1  'True
-      Width           =   1455
-   End
-   Begin VB.OptionButton Option4 
-      Caption         =   "姓名"
-      Height          =   615
       Left            =   13080
       TabIndex        =   23
       Top             =   120
-      Width           =   1335
+      Value           =   -1  'True
+      Width           =   1455
    End
    Begin VB.OptionButton Option3 
       Caption         =   "手机号"
@@ -196,7 +188,7 @@ Begin VB.Form Form1
       Caption         =   "0 / 0"
       Height          =   375
       Left            =   6120
-      TabIndex        =   28
+      TabIndex        =   27
       Top             =   2520
       Width           =   1455
    End
@@ -205,7 +197,7 @@ Begin VB.Form Form1
       Caption         =   "座位分配情况"
       Height          =   375
       Left            =   6120
-      TabIndex        =   27
+      TabIndex        =   26
       Top             =   2160
       Width           =   1575
    End
@@ -213,7 +205,7 @@ Begin VB.Form Form1
       Caption         =   "姓名首字母       姓名                 座位号             手机号码            是否签到"
       Height          =   495
       Left            =   7920
-      TabIndex        =   25
+      TabIndex        =   24
       Top             =   840
       Width           =   8295
    End
@@ -439,24 +431,6 @@ LabelHelp.Caption = "未搜索到结果"
 End If
 
 End If
-
-
-If Option4.Value = True Then
-
-For I = 0 To ListNum.ListCount - 1
-If ListName.List(I) = TextSearch.Text Then
-    ListSearch.AddItem (ListName.List(I))
-    ListSearch.ItemData(ListSearch.ListCount - 1) = I
-End If
-Next I
-If ListSearch.ListCount > 0 Then
-ListSearch.ListIndex = 0
-Else
-LabelHelp.Caption = "未搜索到结果"
-End If
-
-End If
-
 
 If Option5.Value = True Then
 
