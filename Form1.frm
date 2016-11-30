@@ -1,11 +1,11 @@
 VERSION 5.00
 Begin VB.Form Form1 
    BorderStyle     =   1  'Fixed Single
-   Caption         =   "签到系统"
-   ClientHeight    =   5610
+   Caption         =   "土木团学学术部专用 签到系统"
+   ClientHeight    =   5625
    ClientLeft      =   5925
    ClientTop       =   4845
-   ClientWidth     =   8025
+   ClientWidth     =   7710
    BeginProperty Font 
       Name            =   "微软雅黑"
       Size            =   12
@@ -19,47 +19,55 @@ Begin VB.Form Form1
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5610
-   ScaleWidth      =   8025
-   Begin VB.OptionButton Option5 
-      Caption         =   "姓氏"
+   ScaleHeight     =   5625
+   ScaleWidth      =   7710
+   Begin VB.CommandButton Command1 
+      Caption         =   "增加座位"
       Height          =   615
-      Left            =   15000
+      Left            =   6120
+      TabIndex        =   26
+      Top             =   2880
+      Width           =   1455
+   End
+   Begin VB.OptionButton Option5 
+      Caption         =   "姓名"
+      Height          =   615
+      Left            =   14040
       TabIndex        =   24
-      Top             =   0
+      Top             =   120
       Value           =   -1  'True
       Width           =   1455
    End
    Begin VB.OptionButton Option4 
       Caption         =   "姓名"
       Height          =   615
-      Left            =   14040
+      Left            =   13080
       TabIndex        =   23
-      Top             =   0
+      Top             =   120
       Width           =   1335
    End
    Begin VB.OptionButton Option3 
       Caption         =   "手机号"
       Height          =   615
-      Left            =   12840
+      Left            =   11880
       TabIndex        =   19
-      Top             =   0
+      Top             =   120
       Width           =   1335
    End
    Begin VB.OptionButton Option2 
       Caption         =   "座位号"
       Height          =   615
-      Left            =   11640
+      Left            =   10680
       TabIndex        =   18
-      Top             =   0
+      Top             =   120
       Width           =   1695
    End
    Begin VB.OptionButton Option1 
       Caption         =   "姓名首字母"
       Height          =   375
-      Left            =   9960
+      Left            =   9120
       TabIndex        =   17
-      Top             =   120
+      Top             =   240
       Width           =   1815
    End
    Begin VB.TextBox TextSearch 
@@ -67,29 +75,29 @@ Begin VB.Form Form1
       Left            =   1680
       TabIndex        =   14
       Top             =   1440
-      Width           =   3975
+      Width           =   5895
    End
    Begin VB.CommandButton Command10 
       Caption         =   "导出名单"
       Height          =   615
-      Left            =   6480
+      Left            =   6120
       TabIndex        =   13
-      Top             =   3480
+      Top             =   3600
       Width           =   1455
    End
    Begin VB.CommandButton Command9 
       Caption         =   "搜索选项"
       Height          =   615
-      Left            =   6480
+      Left            =   6120
       TabIndex        =   12
       Top             =   4320
       Width           =   1455
    End
    Begin VB.ListBox ListNum 
       Height          =   2895
-      Left            =   13680
+      Left            =   12720
       TabIndex        =   10
-      Top             =   1200
+      Top             =   1320
       Width           =   1815
    End
    Begin VB.CommandButton Command5 
@@ -106,7 +114,7 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       Height          =   1455
-      Left            =   2640
+      Left            =   2520
       MaskColor       =   &H00808080&
       TabIndex        =   8
       Top             =   3480
@@ -125,31 +133,31 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       Height          =   1455
-      Left            =   4560
+      Left            =   4320
       TabIndex        =   7
       Top             =   3480
       Width           =   1695
    End
    Begin VB.ListBox ListPY 
       Height          =   2895
-      Left            =   8520
+      Left            =   7920
       TabIndex        =   5
-      Top             =   1200
+      Top             =   1320
       Width           =   1695
    End
    Begin VB.ListBox ListYesNo 
       Height          =   2895
-      Left            =   15480
+      Left            =   14520
       TabIndex        =   4
-      Top             =   1200
+      Top             =   1320
       Width           =   1335
    End
    Begin VB.ListBox ListWhere 
       Height          =   2895
-      Left            =   12000
+      Left            =   11280
       TabIndex        =   3
-      Top             =   1200
-      Width           =   1695
+      Top             =   1320
+      Width           =   1455
    End
    Begin VB.ListBox ListSearch 
       Appearance      =   0  'Flat
@@ -171,37 +179,55 @@ Begin VB.Form Form1
    Begin VB.CommandButton Command2 
       Caption         =   "搜索（Enter）"
       Height          =   495
-      Left            =   5760
+      Left            =   7920
       TabIndex        =   1
-      Top             =   1440
-      Width           =   2175
+      Top             =   4320
+      Width           =   1935
    End
    Begin VB.ListBox ListName 
       Height          =   2895
-      Left            =   10200
+      Left            =   9600
       TabIndex        =   0
-      Top             =   1200
-      Width           =   1815
+      Top             =   1320
+      Width           =   1695
+   End
+   Begin VB.Label Labelmuch 
+      BackStyle       =   0  'Transparent
+      Caption         =   "0 / 0"
+      Height          =   375
+      Left            =   6120
+      TabIndex        =   28
+      Top             =   2520
+      Width           =   1455
+   End
+   Begin VB.Label Label5 
+      BackStyle       =   0  'Transparent
+      Caption         =   "座位分配情况"
+      Height          =   375
+      Left            =   6120
+      TabIndex        =   27
+      Top             =   2160
+      Width           =   1575
    End
    Begin VB.Label Label4 
       Caption         =   "姓名首字母       姓名                 座位号             手机号码            是否签到"
       Height          =   495
-      Left            =   8520
+      Left            =   7920
       TabIndex        =   25
-      Top             =   720
+      Top             =   840
       Width           =   8295
    End
    Begin VB.Label Label2 
       Caption         =   "By Zhenly         www.zhenly.cn"
       Height          =   855
-      Left            =   14760
+      Left            =   13080
       TabIndex        =   22
       Top             =   4800
       Width           =   2175
    End
    Begin VB.Label LabelS 
       BackStyle       =   0  'Transparent
-      Caption         =   "姓氏："
+      Caption         =   "姓名："
       Height          =   615
       Left            =   120
       TabIndex        =   21
@@ -211,18 +237,19 @@ Begin VB.Form Form1
    Begin VB.Label Label1 
       Caption         =   "搜索选项："
       Height          =   375
-      Left            =   8640
+      Left            =   7920
       TabIndex        =   20
-      Top             =   120
+      Top             =   240
       Width           =   2415
    End
    Begin VB.Label LabelHelp 
       BackStyle       =   0  'Transparent
+      Caption         =   "请先分配座位"
       Height          =   1095
       Left            =   2640
       TabIndex        =   16
       Top             =   2280
-      Width           =   5295
+      Width           =   3375
    End
    Begin VB.Image Image1 
       Height          =   1425
@@ -281,7 +308,7 @@ Begin VB.Form Form1
       EndProperty
       ForeColor       =   &H0000C000&
       Height          =   1215
-      Left            =   5280
+      Left            =   5040
       TabIndex        =   9
       Top             =   120
       Width           =   2775
@@ -301,6 +328,38 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
+Dim Howmuch As Integer
+Dim Maxmuch As Integer
+
+Private Sub Command1_Click()
+Dim temp As String
+Dim name As String
+Dim begin As Integer
+Dim over As Integer
+Dim count As Integer
+name = InputBox("请输入座位的前缀")
+Do
+temp = InputBox("请输入座位的开始序号(请输入整数)")
+Loop Until IsNumeric(temp) = True
+begin = temp
+
+Do
+temp = InputBox("请输入座位的结束序号(请输入整数)")
+Loop Until IsNumeric(temp) = True
+over = temp
+
+
+count = ListWhere.ListCount
+For I = begin To over
+ListWhere.AddItem (name & " " & I)
+ListWhere.ItemData(count) = -1
+count = count + 1
+Next I
+Maxmuch = Maxmuch + over - begin + 1
+Labelmuch.Caption = Howmuch & " / " & Maxmuch
+End Sub
+
 Private Sub Command10_Click()
 
 On Error GoTo h
@@ -321,7 +380,7 @@ End If
   LabelHelp.Caption = "已导出到" & App.Path & "\output.xls"
   Exit Sub
 h:
-  MsgBox ("请确认文件未被占用")
+  MsgBox ("请确认文件" & App.Path & "\output.xls 未被占用")
 End Sub
 
 Private Sub Command2_Click()
@@ -333,7 +392,7 @@ ListSearch.Clear
 If Option1.Value = True Then
 
 For I = 0 To ListPY.ListCount - 1
-If ListPY.List(I) = TextSearch.Text Then
+If Left(ListPY.List(I), Len(TextSearch.Text)) = Left(TextSearch.Text, Len(TextSearch.Text)) And Len(TextSearch.Text) <> 0 Then
     ListSearch.AddItem (ListName.List(I))
     ListSearch.ItemData(ListSearch.ListCount - 1) = I
 End If
@@ -368,7 +427,7 @@ End If
 If Option3.Value = True Then
 
 For I = 0 To ListNum.ListCount - 1
-If ListNum.List(I) = TextSearch.Text Then
+If Left(ListNum.List(I), Len(TextSearch.Text)) = Left(TextSearch.Text, Len(TextSearch.Text)) And Len(TextSearch.Text) <> 0 Then
     ListSearch.AddItem (ListName.List(I))
     ListSearch.ItemData(ListSearch.ListCount - 1) = I
 End If
@@ -402,7 +461,7 @@ End If
 If Option5.Value = True Then
 
 For I = 0 To ListNum.ListCount - 1
-If Left(ListName.List(I), 1) = TextSearch.Text Then
+If Left(ListName.List(I), Len(TextSearch.Text)) = Left(TextSearch.Text, Len(TextSearch.Text)) And Len(TextSearch.Text) <> 0 Then
     ListSearch.AddItem (ListName.List(I))
     ListSearch.ItemData(ListSearch.ListCount - 1) = I
 End If
@@ -444,6 +503,8 @@ Next I
 Label3.Caption = "总人数人数： " & ListName.ListCount & "  已签到人数：  " & yes & "  未签到人数：  " & no & "  签到率： " & Format(CSng(yes / ListName.ListCount), "0.00")
 Command3.Enabled = False
 Command5.Enabled = True
+Howmuch = Howmuch - 1
+Labelmuch.Caption = Howmuch & " / " & Maxmuch
 Else
 LabelHelp.Caption = "还没有签到呢！"
 End If
@@ -569,9 +630,20 @@ Private Function Rndz(a As Long, b As Long)
     Randomize
     Rndz = Int((a - b + 1) * Rnd() + b)
 End Function
+
+
+
 Private Sub Command5_Click()
 Dim xss As Integer
+
+If Howmuch < Maxmuch Then
+
 If ListYesNo.List(ListSearch.ItemData(ListSearch.ListIndex)) = "No" Then
+
+
+
+
+
 
 ListYesNo.List(ListSearch.ItemData(ListSearch.ListIndex)) = "Yes"
 Do
@@ -582,6 +654,8 @@ ListWhere.ItemData(xss - 1) = ListSearch.ItemData(ListSearch.ListIndex)
 ListName.ItemData(ListSearch.ItemData(ListSearch.ListIndex)) = xss - 1
 Labeltxt.Caption = ListWhere.List(xss - 1)
 Labeltxt.ForeColor = &HC000&
+
+
 Dim yes As Integer
 Dim no As Integer
 yes = 0
@@ -593,12 +667,18 @@ Else
 no = no + 1
 End If
 Next I
+Howmuch = yes
+Labelmuch.Caption = Howmuch & " / " & Maxmuch
+
+
 Label3.Caption = "总人数人数： " & ListName.ListCount & "  已签到人数：  " & yes & "  未签到人数：  " & no & "  签到率： " & Format(CSng(yes / ListName.ListCount), "0.00")
 Command5.Enabled = False
 Command3.Enabled = True
 Else
-
 LabelHelp.Caption = "无法再次进行签到！"
+End If
+Else
+LabelHelp.Caption = "座位已满"
 End If
 
 End Sub
@@ -611,10 +691,10 @@ End Sub
 
 Private Sub Command9_Click()
 If Command9.Caption = "搜索选项" Then
-Me.Width = 16980
+Me.Width = 16005
 Command9.Caption = "返回"
 Else
-Me.Width = 8115
+Me.Width = 7935
 Command9.Caption = "搜索选项"
 End If
 End Sub
@@ -651,16 +731,13 @@ Else
     Do While Not EOF(1)
         ReDim Preserve a(I)
         ReDim Preserve b(I)
-        ReDim Preserve c(I)
-         Input #1, a(I), b(I), c(I)
+         Input #1, a(I), b(I)
         I = I + 1
     Loop
 h:
     Close #1
     For I = 1 To UBound(a)
-    
        ListName.AddItem (a(I))
-       ListWhere.AddItem (c(I))
        ListNum.AddItem (b(I))
        ListYesNo.AddItem ("No")
        ListPY.AddItem (test(a(I)))
@@ -678,9 +755,7 @@ no = no + 1
 End If
 Next I
 Label3.Caption = "总人数人数： " & ListName.ListCount & "  已签到人数：  " & yes & "  未签到人数：  " & no & "  签到率： " & Format(CSng(yes / ListName.ListCount), "0.00")
-
-For I = 0 To ListWhere.ListCount - 1
-ListWhere.ItemData(I) = -1
+For I = 0 To ListName.ListCount - 1
 ListName.ItemData(I) = -1
 Next I
 End If
@@ -776,4 +851,8 @@ Private Sub TextSearch_KeyPress(KeyAscii As Integer)
      If KeyAscii >= Asc("a") And KeyAscii <= Asc("z") Then
         KeyAscii = KeyAscii - 32
     End If
+End Sub
+
+Private Sub TextSearch_KeyUp(KeyCode As Integer, Shift As Integer)
+Command2_Click
 End Sub
