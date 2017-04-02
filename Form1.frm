@@ -5,7 +5,7 @@ Begin VB.Form Form1
    ClientHeight    =   5595
    ClientLeft      =   5925
    ClientTop       =   4845
-   ClientWidth     =   7710
+   ClientWidth     =   7695
    BeginProperty Font 
       Name            =   "Î¢ÈíÑÅºÚ"
       Size            =   12
@@ -20,7 +20,7 @@ Begin VB.Form Form1
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   5595
-   ScaleWidth      =   7710
+   ScaleWidth      =   7695
    Begin VB.ListBox ListGroup 
       Height          =   2895
       Left            =   11280
@@ -844,6 +844,11 @@ End Sub
 Private Sub Option5_Click()
 LabelS.Caption = Option5.Caption & ":"
 TextSearch.Text = ""
+End Sub
+
+Private Sub TextSearch_Change()
+Command5.Enabled = False
+Command3.Enabled = False
 End Sub
 
 Private Sub TextSearch_KeyPress(KeyAscii As Integer)
