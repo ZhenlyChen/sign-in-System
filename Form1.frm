@@ -5,7 +5,7 @@ Begin VB.Form Form1
    ClientHeight    =   5595
    ClientLeft      =   5925
    ClientTop       =   4845
-   ClientWidth     =   7695
+   ClientWidth     =   15990
    BeginProperty Font 
       Name            =   "微软雅黑"
       Size            =   12
@@ -20,7 +20,7 @@ Begin VB.Form Form1
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   5595
-   ScaleWidth      =   7695
+   ScaleWidth      =   15990
    Begin VB.ListBox ListGroup 
       Height          =   2895
       Left            =   11280
@@ -72,7 +72,7 @@ Begin VB.Form Form1
    Begin VB.TextBox TextSearch 
       Height          =   495
       Left            =   1680
-      TabIndex        =   14
+      TabIndex        =   0
       Top             =   1440
       Width           =   5895
    End
@@ -80,7 +80,7 @@ Begin VB.Form Form1
       Caption         =   "导出名单"
       Height          =   615
       Left            =   6120
-      TabIndex        =   13
+      TabIndex        =   14
       Top             =   3600
       Width           =   1455
    End
@@ -88,14 +88,14 @@ Begin VB.Form Form1
       Caption         =   "搜索选项"
       Height          =   615
       Left            =   6120
-      TabIndex        =   12
+      TabIndex        =   13
       Top             =   4320
       Width           =   1455
    End
    Begin VB.ListBox ListNum 
       Height          =   2895
       Left            =   12720
-      TabIndex        =   10
+      TabIndex        =   11
       Top             =   1320
       Width           =   1815
    End
@@ -115,7 +115,7 @@ Begin VB.Form Form1
       Height          =   1455
       Left            =   2520
       MaskColor       =   &H00808080&
-      TabIndex        =   8
+      TabIndex        =   9
       Top             =   3480
       Width           =   1695
    End
@@ -133,28 +133,28 @@ Begin VB.Form Form1
       EndProperty
       Height          =   1455
       Left            =   4320
-      TabIndex        =   7
+      TabIndex        =   8
       Top             =   3480
       Width           =   1695
    End
    Begin VB.ListBox ListPY 
       Height          =   2895
       Left            =   7920
-      TabIndex        =   5
+      TabIndex        =   6
       Top             =   1320
       Width           =   1695
    End
    Begin VB.ListBox ListYesNo 
       Height          =   2895
       Left            =   14520
-      TabIndex        =   4
+      TabIndex        =   5
       Top             =   1320
       Width           =   1335
    End
    Begin VB.ListBox ListWhere 
       Height          =   2895
       Left            =   2040
-      TabIndex        =   3
+      TabIndex        =   4
       Top             =   6360
       Width           =   1455
    End
@@ -171,7 +171,7 @@ Begin VB.Form Form1
       EndProperty
       Height          =   2655
       Left            =   120
-      TabIndex        =   2
+      TabIndex        =   3
       Top             =   2280
       Width           =   2295
    End
@@ -179,14 +179,14 @@ Begin VB.Form Form1
       Caption         =   "搜索（Enter）"
       Height          =   495
       Left            =   7920
-      TabIndex        =   1
+      TabIndex        =   2
       Top             =   4320
       Width           =   1935
    End
    Begin VB.ListBox ListName 
       Height          =   2895
       Left            =   9600
-      TabIndex        =   0
+      TabIndex        =   1
       Top             =   1320
       Width           =   1695
    End
@@ -290,7 +290,7 @@ Begin VB.Form Form1
       EndProperty
       Height          =   495
       Left            =   1680
-      TabIndex        =   11
+      TabIndex        =   12
       Top             =   840
       Width           =   4215
    End
@@ -308,7 +308,7 @@ Begin VB.Form Form1
       ForeColor       =   &H0000C000&
       Height          =   1215
       Left            =   5040
-      TabIndex        =   9
+      TabIndex        =   10
       Top             =   240
       Width           =   2655
    End
@@ -317,7 +317,7 @@ Begin VB.Form Form1
       Caption         =   "总人数人数：     已签到人数：     未签到人数：    签到率：  "
       Height          =   375
       Left            =   120
-      TabIndex        =   6
+      TabIndex        =   7
       Top             =   5160
       Width           =   9255
    End
@@ -486,6 +486,7 @@ Labelmuch.Caption = Howmuch & " / " & Maxmuch
 Else
 LabelHelp.Caption = "还没有签到呢！"
 End If
+TextSearch.SetFocus
 End Sub
 
 
@@ -658,7 +659,7 @@ End If
 'Else
 'LabelHelp.Caption = "座位已满"
 'End If
-
+TextSearch.SetFocus
 End Sub
 
 
@@ -810,6 +811,18 @@ LabelNum.Caption = "Phone：" & ListNum.List(ListSearch.ItemData(ListSearch.ListI
 
 End Sub
 
+Private Sub ListSearch_KeyUp(KeyCode As Integer, Shift As Integer)
+ If KeyCode = 13 Then
+     If ListSearch.ListCount > 0 Then
+     If ListYesNo.List(ListSearch.ItemData(ListSearch.ListIndex)) = "No" Then
+     Command5_Click
+     Else
+     Command3_Click
+     End If
+     End If
+End If
+End Sub
+
 Private Sub ListYesNo_Click()
 ListGroup.ListIndex = ListYesNo.ListIndex
 ListName.ListIndex = ListYesNo.ListIndex
@@ -852,9 +865,6 @@ Command3.Enabled = False
 End Sub
 
 Private Sub TextSearch_KeyPress(KeyAscii As Integer)
-    If KeyAscii = 13 Then
-        Command2_Click
-    End If
      If KeyAscii >= Asc("a") And KeyAscii <= Asc("z") Then
         KeyAscii = KeyAscii - 32
     End If
@@ -862,4 +872,30 @@ End Sub
 
 Private Sub TextSearch_KeyUp(KeyCode As Integer, Shift As Integer)
 Command2_Click
+ If KeyCode = 13 Then
+     If ListSearch.ListCount > 0 Then
+     If ListYesNo.List(ListSearch.ItemData(ListSearch.ListIndex)) = "No" Then
+     Command5_Click
+     Else
+     Command3_Click
+     End If
+     End If
+End If
+If KeyCode = 38 Then
+    If ListSearch.ListCount > 0 Then
+        If ListSearch.ListIndex - 1 >= 0 Then
+            ListSearch.ListIndex = ListSearch.ListIndex - 1
+            ListSearch.SetFocus
+        End If
+    End If
+    
+End If
+If KeyCode = 40 Then
+    If ListSearch.ListCount > 0 Then
+        If ListSearch.ListIndex + 1 <= ListSearch.ListCount Then
+            ListSearch.ListIndex = ListSearch.ListIndex + 1
+            ListSearch.SetFocus
+        End If
+    End If
+End If
 End Sub
