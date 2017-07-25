@@ -2,10 +2,10 @@ VERSION 5.00
 Begin VB.Form Form1 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "土木团学学术部专用 签到系统"
-   ClientHeight    =   5625
+   ClientHeight    =   5595
    ClientLeft      =   5925
    ClientTop       =   4845
-   ClientWidth     =   7665
+   ClientWidth     =   7710
    BeginProperty Font 
       Name            =   "微软雅黑"
       Size            =   12
@@ -19,14 +19,21 @@ Begin VB.Form Form1
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5625
-   ScaleWidth      =   7665
+   ScaleHeight     =   5595
+   ScaleWidth      =   7710
+   Begin VB.ListBox ListGroup 
+      Height          =   2895
+      Left            =   11280
+      TabIndex        =   28
+      Top             =   1320
+      Width           =   1455
+   End
    Begin VB.CommandButton Command1 
       Caption         =   "增加座位"
       Height          =   615
-      Left            =   6120
+      Left            =   120
       TabIndex        =   25
-      Top             =   2880
+      Top             =   6960
       Width           =   1455
    End
    Begin VB.OptionButton Option5 
@@ -35,7 +42,6 @@ Begin VB.Form Form1
       Left            =   13080
       TabIndex        =   23
       Top             =   120
-      Value           =   -1  'True
       Width           =   1455
    End
    Begin VB.OptionButton Option3 
@@ -49,9 +55,9 @@ Begin VB.Form Form1
    Begin VB.OptionButton Option2 
       Caption         =   "座位号"
       Height          =   615
-      Left            =   10680
+      Left            =   4320
       TabIndex        =   18
-      Top             =   120
+      Top             =   6720
       Width           =   1695
    End
    Begin VB.OptionButton Option1 
@@ -60,6 +66,7 @@ Begin VB.Form Form1
       Left            =   9120
       TabIndex        =   17
       Top             =   240
+      Value           =   -1  'True
       Width           =   1815
    End
    Begin VB.TextBox TextSearch 
@@ -146,9 +153,9 @@ Begin VB.Form Form1
    End
    Begin VB.ListBox ListWhere 
       Height          =   2895
-      Left            =   11280
+      Left            =   2040
       TabIndex        =   3
-      Top             =   1320
+      Top             =   6360
       Width           =   1455
    End
    Begin VB.ListBox ListSearch 
@@ -187,22 +194,22 @@ Begin VB.Form Form1
       BackStyle       =   0  'Transparent
       Caption         =   "0 / 0"
       Height          =   375
-      Left            =   6120
+      Left            =   120
       TabIndex        =   27
-      Top             =   2520
+      Top             =   6480
       Width           =   1455
    End
    Begin VB.Label Label5 
       BackStyle       =   0  'Transparent
       Caption         =   "座位分配情况"
       Height          =   375
-      Left            =   6120
+      Left            =   120
       TabIndex        =   26
-      Top             =   2160
+      Top             =   6240
       Width           =   1575
    End
    Begin VB.Label Label4 
-      Caption         =   "姓名首字母       姓名                 座位号             手机号码            是否签到"
+      Caption         =   "姓名首字母       姓名                 分组              手机号码            是否签到"
       Height          =   495
       Left            =   7920
       TabIndex        =   24
@@ -302,8 +309,8 @@ Begin VB.Form Form1
       Height          =   1215
       Left            =   5040
       TabIndex        =   9
-      Top             =   120
-      Width           =   2775
+      Top             =   240
+      Width           =   2655
    End
    Begin VB.Label Label3 
       BackStyle       =   0  'Transparent
@@ -355,24 +362,21 @@ End Sub
 Private Sub Command10_Click()
 
 On Error GoTo h
- Open App.Path & "\output.xls" For Output As #1   '创建/打文件
- Print #1, "姓名" & Chr(9) & "手机号码" & Chr(9) & "座位" & Chr(9) & "签到"
+abc = Month(Now) & Day(Now) & Hour(Now) & Minute(Now) & Second(Now)
+ Open App.Path & "\output" & abc & ".xls" For Output As #1 '创建/打文件
+ Print #1, "姓名" & Chr(9) & "手机号码" & Chr(9) & "组别" & Chr(9) & "签到"
   For I = 0 To ListName.ListCount - 1  '输入文件
-  If ListName.ItemData(I) > -1 Then
-    Print #1, ListName.List(I) & Chr(9) & ListNum.List(I) & Chr(9) & ListWhere.List(ListName.ItemData(I)) & Chr(9) & ListYesNo.List(I)
-Else
- Print #1, ListName.List(I) & Chr(9) & ListNum.List(I) & Chr(9) & "未分配" & Chr(9) & ListYesNo.List(I)
-End If
+    Print #1, ListName.List(I) & Chr(9) & ListNum.List(I) & Chr(9) & ListGroup.List(I) & Chr(9) & ListYesNo.List(I) 'todo
   Next I
   Close #1
   
   
   
   
-  LabelHelp.Caption = "已导出到" & App.Path & "\output.xls"
+  LabelHelp.Caption = "已导出到" & App.Path & "\output" & abc & ".xls"
   Exit Sub
 h:
-  MsgBox ("请确认文件" & App.Path & "\output.xls 未被占用")
+  MsgBox ("请确认文件" & App.Path & "\output" & abc & ".xls 未被占用")
 End Sub
 
 Private Sub Command2_Click()
@@ -397,24 +401,24 @@ End If
 
 End If
 
-If Option2.Value = True Then
-fuck = 0
-For I = 0 To ListWhere.ListCount - 1
-If ListWhere.List(I) = TextSearch.Text Then
-    If ListWhere.ItemData(I) >= 0 Then
-    ListSearch.AddItem (ListName.List(ListWhere.ItemData(I)))
-    ListSearch.ItemData(ListSearch.ListCount - 1) = ListWhere.ItemData(I)
-    End If
-End If
-Next I
+'If Option2.Value = True Then
+'fuck = 0
+'For I = 0 To ListWhere.ListCount - 1
+'If ListWhere.List(I) = TextSearch.Text Then
+'    If ListWhere.ItemData(I) >= 0 Then
+'    ListSearch.AddItem (ListName.List(ListWhere.ItemData(I)))
+'    ListSearch.ItemData(ListSearch.ListCount - 1) = ListWhere.ItemData(I)
+'    End If
+'End If
+'Next I
 
-If ListSearch.ListCount > 0 Then
-ListSearch.ListIndex = 0
-Else
-LabelHelp.Caption = "该座位还没有被分配"
-End If
+'If ListSearch.ListCount > 0 Then
+'ListSearch.ListIndex = 0
+'Else
+'LabelHelp.Caption = "该座位还没有被分配"
+'End If
 
-End If
+'End If
 
 If Option3.Value = True Then
 
@@ -460,7 +464,7 @@ ListYesNo.List(ListSearch.ItemData(ListSearch.ListIndex)) = "No"
 Labeltxt.Caption = "未签到"
 Labeltxt.ForeColor = &HFF&
 
-ListWhere.ItemData(ListName.ItemData(ListSearch.ItemData(ListSearch.ListIndex))) = -1
+'ListWhere.ItemData(ListName.ItemData(ListSearch.ItemData(ListSearch.ListIndex))) = -1
 ListName.ItemData(ListSearch.ItemData(ListSearch.ListIndex)) = 0
 
 Dim yes As Integer
@@ -610,7 +614,7 @@ End Function
 Private Sub Command5_Click()
 Dim xss As Integer
 
-If Howmuch < Maxmuch Then
+'If Howmuch < Maxmuch Then
 
 If ListYesNo.List(ListSearch.ItemData(ListSearch.ListIndex)) = "No" Then
 
@@ -620,13 +624,13 @@ If ListYesNo.List(ListSearch.ItemData(ListSearch.ListIndex)) = "No" Then
 
 
 ListYesNo.List(ListSearch.ItemData(ListSearch.ListIndex)) = "Yes"
-Do
-xss = Rndz(0, ListWhere.ListCount + 1)
+'Do
+'xss = Rndz(0, ListWhere.ListCount + 1)
 'MsgBox (xss)
-Loop Until ListWhere.ItemData(xss - 1) = -1
-ListWhere.ItemData(xss - 1) = ListSearch.ItemData(ListSearch.ListIndex)
-ListName.ItemData(ListSearch.ItemData(ListSearch.ListIndex)) = xss - 1
-Labeltxt.Caption = ListWhere.List(xss - 1)
+'Loop Until ListWhere.ItemData(xss - 1) = -1
+'ListWhere.ItemData(xss - 1) = ListSearch.ItemData(ListSearch.ListIndex)
+'ListName.ItemData(ListSearch.ItemData(ListSearch.ListIndex)) = xss - 1
+Labeltxt.Caption = " " & ListGroup.List(ListSearch.ItemData(ListSearch.ListIndex))
 Labeltxt.ForeColor = &HC000&
 
 
@@ -643,17 +647,17 @@ End If
 Next I
 Howmuch = yes
 Labelmuch.Caption = Howmuch & " / " & Maxmuch
-
-
 Label3.Caption = "总人数人数： " & ListName.ListCount & "  已签到人数：  " & yes & "  未签到人数：  " & no & "  签到率： " & Format(CSng(yes / ListName.ListCount), "0.00")
 Command5.Enabled = False
 Command3.Enabled = True
+TextSearch.Text = ""
+TextSearch.SetFocus
 Else
 LabelHelp.Caption = "无法再次进行签到！"
 End If
-Else
-LabelHelp.Caption = "座位已满"
-End If
+'Else
+'LabelHelp.Caption = "座位已满"
+'End If
 
 End Sub
 
@@ -693,7 +697,7 @@ Else
     fs2.write S   '写入文本
     fs2.Close    '关闭文本
     ListName.Clear
-    ListWhere.Clear
+   ' ListWhere.Clear
     ListYesNo.Clear
     Dim a() As String
     Dim b() As String
@@ -705,7 +709,8 @@ Else
     Do While Not EOF(1)
         ReDim Preserve a(I)
         ReDim Preserve b(I)
-         Input #1, a(I), b(I)
+        ReDim Preserve c(I)
+         Input #1, a(I), b(I), c(I)
         I = I + 1
     Loop
 h:
@@ -713,6 +718,7 @@ h:
     For I = 1 To UBound(a)
        ListName.AddItem (a(I))
        ListNum.AddItem (b(I))
+       ListGroup.AddItem (c(I))
        ListYesNo.AddItem ("No")
        ListPY.AddItem (test(a(I)))
     Next
@@ -735,6 +741,27 @@ Next I
 End If
 End Sub
 
+Private Sub Form_Unload(Cancel As Integer)
+
+On Error GoTo h
+abc = Month(Now) & Day(Now) & Hour(Now) & Minute(Now) & Second(Now)
+ Open App.Path & "\output(auto)" & abc & ".xls" For Output As #1 '创建/打文件
+ Print #1, "姓名" & Chr(9) & "手机号码" & Chr(9) & "组别" & Chr(9) & "签到"
+  For I = 0 To ListName.ListCount - 1  '输入文件
+    Print #1, ListName.List(I) & Chr(9) & ListNum.List(I) & Chr(9) & ListGroup.List(I) & Chr(9) & ListYesNo.List(I) 'todo
+
+  Next I
+  Close #1
+  
+  
+  
+  
+  LabelHelp.Caption = "已导出到" & App.Path & "\output(auto)" & abc & ".xls"
+  Exit Sub
+h:
+  MsgBox ("自动保存失败，请确认文件" & App.Path & "\output(auto)" & abc & ".xls 未被占用")
+End Sub
+
 Private Sub Label2_Click()
 Shell "explorer http://www.zhenly.cn"
 End Sub
@@ -743,22 +770,23 @@ Private Sub ListName_Click()
 ListYesNo.ListIndex = ListName.ListIndex
 ListNum.ListIndex = ListName.ListIndex
 ListPY.ListIndex = ListName.ListIndex
-If ListName.ItemData(ListName.ListIndex) >= 0 Then
-ListWhere.ListIndex = ListName.ItemData(ListName.ListIndex)
-Else
-ListWhere.ListIndex = -1
-End If
+'If ListName.ItemData(ListName.ListIndex) >= 0 Then
+'ListWhere.ListIndex = ListName.ItemData(ListName.ListIndex)
+'Else
+'ListWhere.ListIndex = -1
+'End If
 End Sub
 
 Private Sub ListNum_Click()
 ListName.ListIndex = ListNum.ListIndex
 ListYesNo.ListIndex = ListNum.ListIndex
 'ListWhere.ListIndex = ListNum.ListIndex
+ListGroup.ListIndex = ListNum.ListIndex
 ListPY.ListIndex = ListNum.ListIndex
 End Sub
 
 Private Sub ListPY_Click()
-'ListWhere.ListIndex = ListPY.ListIndex
+ListGroup.ListIndex = ListPY.ListIndex
 ListName.ListIndex = ListPY.ListIndex
 ListNum.ListIndex = ListPY.ListIndex
 ListYesNo.ListIndex = ListPY.ListIndex
@@ -772,7 +800,7 @@ Labeltxt.ForeColor = &HFF&
 Command5.Enabled = True
 Command3.Enabled = False
 Else
-Labeltxt.Caption = ListWhere.List(ListName.ItemData(ListSearch.ItemData(ListSearch.ListIndex)))
+Labeltxt.Caption = ListGroup.List(ListSearch.ItemData(ListSearch.ListIndex))
 Labeltxt.ForeColor = &HC000&
 Command3.Enabled = True
 Command5.Enabled = False
@@ -783,7 +811,7 @@ LabelNum.Caption = "Phone：" & ListNum.List(ListSearch.ItemData(ListSearch.ListI
 End Sub
 
 Private Sub ListYesNo_Click()
-'ListWhere.ListIndex = ListYesNo.ListIndex
+ListGroup.ListIndex = ListYesNo.ListIndex
 ListName.ListIndex = ListYesNo.ListIndex
 ListNum.ListIndex = ListYesNo.ListIndex
 ListPY.ListIndex = ListYesNo.ListIndex
@@ -818,6 +846,10 @@ LabelS.Caption = Option5.Caption & ":"
 TextSearch.Text = ""
 End Sub
 
+Private Sub TextSearch_Change()
+Command2_Click
+End Sub
+
 Private Sub TextSearch_KeyPress(KeyAscii As Integer)
     If KeyAscii = 13 Then
         Command2_Click
@@ -827,6 +859,3 @@ Private Sub TextSearch_KeyPress(KeyAscii As Integer)
     End If
 End Sub
 
-Private Sub TextSearch_KeyUp(KeyCode As Integer, Shift As Integer)
-Command2_Click
-End Sub
